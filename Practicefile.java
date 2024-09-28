@@ -1,9 +1,10 @@
 import java.util.Scanner;
+import OOPS.Practice;
 
 /**
  * Practice
  */
-public class Practice {
+public class Practicefile {
 // function that calculates the Greatest Common Divisor of 2 numbers. 
     static void gc(int a , int b){
         while (a!=b) {
@@ -48,5 +49,7 @@ public class Practice {
         System.out.println(sb.compareTo(sb2));
         sb.setCharAt(5, 'y');
         System.out.println(sb);
+
+       
     }
 }
