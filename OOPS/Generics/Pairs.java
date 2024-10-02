@@ -1,4 +1,4 @@
-package OOPS.Generics;
+package Generics;
 
 public class Pairs<T , V> {
     V first;
