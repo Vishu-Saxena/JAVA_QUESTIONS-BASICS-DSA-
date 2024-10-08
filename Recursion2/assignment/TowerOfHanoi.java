@@ -8,7 +8,7 @@ public class TowerOfHanoi {
             return;
         }
         towerOfHanoi(towers-1, source, destination, auxillary);
-        towerOfHanoi(towers-1, source, auxillary, destination);
+        System.out.println(source + " " + destination);
         towerOfHanoi(towers-1, auxillary, source, destination);
     }
     public static void main(String[] args) {

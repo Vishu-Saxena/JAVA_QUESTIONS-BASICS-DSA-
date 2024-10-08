@@ -1,55 +1,54 @@
 import java.util.Scanner;
 
-
-/**
- * Practice
- */
+import String.StringBuilders;;
 public class Practicefile {
-// function that calculates the Greatest Common Divisor of 2 numbers. 
-    static void gc(int a , int b){
-        while (a!=b) {
-            if(a>b){
-                a = a-b;
-            }else{
-                b = b-a;
-            }
+
+    public static int tilling(int width){
+        if(width==0 || width==1){
+            return 1;
         }
 
-        System.out.println(a);
-        
+        int totalWays;
+
+        // for every tile we have two choices either place it verticaly or horizontaly
+        int verticalWay = tilling(width-1);
+        int horizontaly = tilling(width-2);
+        totalWays = verticalWay + horizontaly;
+        return totalWays;
+    
     }
-// program to print Fibonacci series of n terms
 
-    static void Fibonacci(){
-        Scanner s= new Scanner(System.in);
-        System.out.print("enter the number : ");
-        int num = s.nextInt();
-
-        int a = 0 ;
-        int b = 1;
-
-        for(int i = 0 ; i < num ; i++){
-            System.out.print(b + " ");
-            int c = a+b;
-            a = b;
-            b = c;
+    public static String reverse(String str){
+        if(str.length() == 0 || str.length() ==1){
+            return str;
         }
+        String result = str.charAt(str.length()-1)+reverse(str.substring(0 , str.length()-1));
+        return result;
+    } 
 
+    public static String removeDuplicates(String str){
+        if(str.length() == 0){
+            return str;
+        }
+        
+        String result = removeDuplicates(str.substring(1));
+       if(!result.contains( Character.toString(str.charAt(0)))){
+            result += str.charAt(0);
+       }
+             
+       return result;
     }
 
     public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder("Mansi Saxena");
-        StringBuilder sb2 = new StringBuilder("Mansi Saxena");
-        System.out.println(sb.length());
-        System.out.println(sb.charAt(4));
-        System.out.println(sb.indexOf("an"));
-        System.out.println(sb.capacity());
-        System.out.println(sb.lastIndexOf("a"));
-        System.out.println(sb.isEmpty());
-        System.out.println(sb.compareTo(sb2));
-        sb.setCharAt(5, 'y');
-        System.out.println(sb);
+        // System.out.println(tilling(4));4
+        // System.out.println(removeDuplicates(reverse("aababc")));
+        // System.out.println(reverse("null"));
 
-       
+        int a  = 12;
+        int b =5;
+        int c = 10;
+        int res = a>b ? (a<c ? a : b > c ? b : c) : b<c? b : a>c?a :c ;
+        System.out.println(res);
+
     }
 }
