@@ -31,7 +31,7 @@ public class ReturnSubsetOfArray {
         return finalOutut;
     }
 
-    public static void printArr(int[][] arr , int sum){
+    public static void printArr(int[][] arr){
         // System.out.println("{}");
         for(int i =1 ; i < arr.length ; i++){
             int subSum = 0;
@@ -39,20 +39,21 @@ public class ReturnSubsetOfArray {
                 subSum += arr[i][j];
                 // System.out.print(arr[i][j]  + " ");
             }
-            if(sum == subSum){
-                for(int j =0 ; j<arr[i].length ; j++){
-                    // subSum += arr[i][j];
-                    System.out.print(arr[i][j]  + " ");
-                }
-                System.out.println();
-            }
+            System.out.println(subSum);
+            // if(sum == subSum){
+            //     for(int j =0 ; j<arr[i].length ; j++){
+            //         // subSum += arr[i][j];
+            //         System.out.print(arr[i][j]  + " ");
+            //     }
+            //     System.out.println();
+            // }
            
         }
     }
     public static void main(String[] args) {
-        int[] arr = {1,2,3};
+        int[] arr = {1,2,3, 4};
         int[][] subset = subsets(arr, 0);
         // System.out.println(subset[1][0]);
-        printArr(subset , 90);
+        printArr(subset);
     }
 }
