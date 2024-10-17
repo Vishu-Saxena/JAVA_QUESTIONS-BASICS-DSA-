@@ -3,7 +3,9 @@ package Backtracking;
 public class NQueen {
 
     public static void placeQueen(char[][] board , int row){
+        // base condition
         if(row == board.length){
+            // if row = n means all queens are plced then print the board
             for(int k = 0 ; k<board.length; k++){
                 for (int i = 0; i < board.length; i++) {
                     System.out.print(board[k][i] + " ");

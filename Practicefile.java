@@ -112,7 +112,7 @@ public class Practicefile {
         return list;
     }
 
-    // code fro binary search
+    // code for binary search
     public static int binarySearch(int arr[] , int si , int ei , int target){
         if(si>ei){
             return -1;
@@ -236,26 +236,319 @@ public class Practicefile {
         return finalres;
     }
 
-   
+    // subset with iterative approach
+    static int[][] subsets(int[]arr , int si){
+        if(si == arr.length){
+            int[][] res = new int[1][0];//returning empty array
+            return res;
+        }
+        // now calling subset()
+        int[][]smallerOutput = subsets(arr, si+1);
+        int[][]output = new int[smallerOutput.length*2][];
+        // copying all the elements of smallerOutput to outpu
+        int k =0;
+        for(int i = 1 ; i<smallerOutput.length ; i++){
+            output[k] = new int[smallerOutput[i].length];
+            for(int j=0 ; j<smallerOutput[i].length; j++){
+                output[i][j] = smallerOutput[i][j];
+                k++;
+            }
+        }
+        // now adding our current element to output[]
+        for(int i = 0; i<smallerOutput.length;i++){
+            output[k] = new int[smallerOutput[i].length+1];
+            output[k][0] = arr[si];
+            for(int j =1 ; j<smallerOutput[i].length+1 ; j++){
+                output[k][j] = smallerOutput[i][j-1];
+                k++;
+            }
+        }
+        return output;
+    }
+
+    // permutation
+    static String[] permutation(String str) {
+        // if string is empty
+        if(str.length() == 0) {
+            String[] res = {""};
+            return res;
+        }
+        
+        // else wise
+        String smallOutput[] = permutation(str.substring(1));
+        String output[] = new String[str.length() * smallOutput.length];
+        int k = 0;
+        
+        for (int i = 0; i < smallOutput.length; i++) {
+            String current = smallOutput[i];
+            for (int j = 0; j <= current.length(); j++) {
+                output[k] = current.substring(0, j) + str.charAt(0) + current.substring(j);
+                k++;
+            }
+        }
+    
+        return output;
+    }
+
+    // permutation  to print permutation
+    static void permutationPrint(String str , String res){
+        if(str.length() == 0){
+            System.out.println(res);
+            return;
+        }
+        //elsewise
+        for(int i =0; i<str.length() ; i++){
+            permutationPrint(str.substring(0, i)+str.substring(i+1) , res +str.charAt(i));
+        }
+        
+    }
+    // rat in a maze for checking whether path exist or not
+    static boolean isPath(int[][]maze){
+        int n = maze.length;
+        int[][]path = new int[n][n];
+        return pathMila(maze , path , 0 , 0);
+    }
+    // function that will check whether the given coordinates are valid or not and stop at destination
+    static boolean pathMila(int[][]maze , int[][]path , int row , int col){
+        int n = maze.length;
+        // check kahi current cell hi toh destination h ya nhi 
+        if(row == n-1 && col == n-1){
+            return true;
+        }
+        // otherwise check whether the current cell valid h ya nhi 
+        if(row >=n || col>=n || row<0 || col <0 || maze[row][col] == 0 || path[row][col] ==1){
+            return false;
+        }
+        path[row][col] = 1;
+        // if your current cell is valid then look for next cell
+        // top
+        if(pathMila(maze, path, row-1, col)){
+            return true;
+        }
+        
+        // right
+        if(pathMila(maze, path, row, col+1)){
+            return true;
+        };
+
+        // down
+        if(pathMila(maze, path, row+1, col)){
+            return true;
+        }
+        if(pathMila(maze, path, row+1, col)){
+            return true;
+        }
+        // left
+        if(pathMila(maze, path, row, col-1)){
+            return true;
+        }
+        return false;
+    }
+
+    static void ratInAMazePaths(int[][]maze){
+        int n = maze.length;
+        int[][]path = new int[n][n];
+        
+        printAllPath(maze , path , 0 , 0);
+
+    }
+    static void printAllPath(int[][]maze , int[][]path , int row , int col){
+        int n = maze.length;
+        // check kahi current cell hi toh destination h ya nhi 
+        if(row == n-1 && col == n-1){
+            //if destination reached then print the path
+            path[row][col] = 1;
+            for (int i = 0; i < path.length; i++) {
+                for (int j = 0; j < path.length; j++) {
+                    System.out.print(path[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("----------");
+            return;
+        }
+        // otherwise check whether the current cell valid h ya nhi 
+        if(row >=n || col>=n || row<0 || col <0 || maze[row][col] == 0 || path[row][col] ==1){
+            return;
+        }
+        path[row][col] = 1;
+        // now explore all the directions
+        // top
+        printAllPath(maze, path, row-1, col);
+        // down
+        printAllPath(maze, path, row+1, col);
+        // leff
+        printAllPath(maze, path, row, col-1);
+        // right
+        printAllPath(maze, path, row, col+1);
+        path[row][col] = 0;
+    }
+
+    // place n queens 
+    static void placeNqueens(int[][]board , int row ){
+        int n = board.length;
+        if(row == n){
+            // print board
+            System.out.println("-----------------");
+            for (int i = 0; i < n; i++) {
+                
+                for (int j = 0; j < n; j++) {
+                    System.out.print(board[i][j]);
+                }
+                System.out.println();
+                
+            }
+            System.out.println("------------------");
+            return;
+        }
+        // placing queens
+        for(int j =0 ; j<n; j++){
+            if(isSafe(board, row, j)){
+                board[row][j] = 1;
+                placeNqueens(board, row+1);
+                board[row][j] = 0;
+            }
+            
+        }
+      
+    }
+    // function to check whther the current cell is safe to place the queen
+    static boolean isSafe(int[][]board , int row, int col){
+        // check verticaly
+        for (int i = row; i >=0; i--) {
+            if(board[i][col]== 1){
+                return false;
+            }
+        }
+        // check left daigonaly
+        for (int i = row , j=col; i >=0 && j>=0; i-- , j--) {
+            if(board[i][j]== 1){
+                return false;
+            }
+        }
+        // check right daigonaly
+        for (int i = row , j=col; i>=0 && j<board.length; i-- , j++) {
+            if(board[i][j]== 1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // grid ways
+    static void gridWays(int n ){
+       System.out.println("gridways");
+        int[][]path = new int[n][n];
+        printGridWays(3, path , 0 , 0);
+    }
+    static void printGridWays(int n , int[][]path , int row , int col){
+        if(row==n-1 && col==n-1){
+            // destination is reached print path
+            path[row][col] = 1;
+            for (int i = 0; i < path.length; i++) {
+                for (int j = 0; j < path.length; j++) {
+                    System.out.print(path[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println();
+            return;
+            
+        }
+        // check ki current cell valid h ya nhi
+        if(row >=n || col>=n || row<0 || col<0 ){
+            return;
+        }
+        // if current cell is valid then update it to path[][]
+        path[row][col] = 1;
+        printGridWays(n, path, row+1, col);//exploring next move as down move
+        printGridWays(n, path, row, col+1);//exploring next move as right move
+        path[row][col] = 0;
+    }
+
+    // place knight tour
+    static void knightTour(int n){
+        // System.out.println("inside knightour");
+        int[][]board = new int[n][n];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                board[i][j] = -1;
+            }
+        }
+       System.out.println(printKnightTour(board , 0 , 0 ,0));
+    //    System.out.println(Arrays.toString(board[0]));
+    //    System.out.println(Arrays.toString(board[1]));
+    //    System.out.println(Arrays.toString(board[2]));
+    // //    System.out.println(Arrays.toString(board[3]));
+    // //    System.out.println(Arrays.toString(board[4]));
+    }
+    static boolean printKnightTour(int[][]board , int i , int j , int move){
+        // System.out.println(move);
+        int n = board.length;
+        // base condition
+        if(move ==(n*n)){
+            // print the board
+            for (int k = 0; k < board.length; k++) {
+                for (int k2 = 0; k2 < board.length; k2++) {
+                    System.out.print(board[k][k2] + " ");
+                }
+                System.out.println();
+            }
+            System.out.println( "---------------------");
+            return true;
+        }
+
+        // check whether the current cell is safe to place the knight or not
+        if(i<0 || j<0 || i>=n || j>=n || board[i][j] != -1){
+            return false;
+        }
+        board[i][j] = move;
+        // now look for next move
+
+        // two down one right
+        if(printKnightTour(board, i+2, j+1 , move+1)){
+            return true;
+        };
+        // two down one left
+        if(printKnightTour(board, i+2, j-1, move+1)){
+            return true;
+        }
+       
+        // two up one right
+        if (printKnightTour(board, i-2, j+1, move+1)) {
+            return true;
+        }
+        
+        // two up one left
+        if(printKnightTour(board, i-2, j-1, move+1)){
+            return true;
+        }
+       
+        // two right one up
+        if(printKnightTour(board, i-1, j+2, move+1)){
+            return true;
+        }
+        // two right one down
+        if(printKnightTour(board, i+1, j+2, move+1)){
+            return true;
+        };
+        // two left one up
+        if( printKnightTour(board, i-1, j-2, move+1)){
+            return true;
+        }
+       
+        // two left one down
+        if(printKnightTour(board, i+1, j-2, move+1)){
+            return true;
+        };
+        board[i][j] = -1;
+
+        return false;
+
+    }
+    
 
     public static void main(String[] args) {
-        // System.out.println(power(3, 4));.
-        // printNum(4);
-        // System.out.println(numberOfdigits(1298763));
-        // System.out.println(fibinaici(5));
-        // int num[] = {1,2,3,4};
-        // System.out.println(sumofArr(num, 0));
-        // System.out.println(checkNum(num, 0, 9));
-        // allIndices(num, 3, 0);
-        // String str = "aabcav";
-        // // String ans = "";
-        // System.out.println(removeDuplicate(str, "", 0));
-        // int[] arr = {9,8,7,6,5,4,3,2,1};
-        // // System.out.println(search(arr, 1, 0, 7));
-        // divide(arr, 0, arr.length-1);
-        // System.out.println( Arrays.toString(arr));
-        String[]res = subseq("abc");
-        System.out.println(Arrays.toString(res));
-        
+        knightTour(5);
     }
 }
