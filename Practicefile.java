@@ -546,9 +546,64 @@ public class Practicefile {
         return false;
 
     }
+
+    // keypad combination
+
+    static String[] keypadComb(int num){
+        if(num<=0){
+            String output[] = {""};
+            return output;
+        }
+        String[]keySeq = getCharseq(num%10);
+        String[]smlOutput = keypadComb(num/10);
+        String[]finalOutput = new String[smlOutput.length*keySeq.length];
+        int k = 0;
+      
+        for (int j = 0; j < keySeq.length; j++) {
+            for (int i = 0; i < smlOutput.length; i++) {
+    
+                finalOutput[k] = keySeq[j] + smlOutput[i];
+                k++;
+            }
+        }
+        return finalOutput;
+    }
+
+    static String[] getCharseq(int n){
+        if(n <= 1 || n>=10){
+            System.exit(0);
+            String oupt[]= {"1or0"};
+            return oupt;
+        }else if(n==2){
+            String[] output = {"a" , "b" , "c"};
+            return output;
+        }else if(n==3){
+            String[] output = {"d" , "e" , "f"};
+            return output;
+        }else if(n==4){
+            String[] output = {"g" , "h" , "i"};
+            return output;
+        }else if(n==5){
+            String[] output = {"j" , "k" , "l"};
+            return output;
+        }else if(n==6){
+            String[] output = {"m" , "n" , "o"};
+            return output;
+        }else if(n==7){
+            String[] output = {"p" , "q" , "r" , "s"};
+            return output;
+        }else if(n==8){
+            String[] output = { "t" , "u" , "v"};
+            return output;
+        }else{
+            String[] output = {"w" , "x" , "y" , "z"};
+            return output;
+        }
+    }
     
 
     public static void main(String[] args) {
-        knightTour(5);
+        // knightTour(5);
+        System.out.println(Arrays.toString(keypadComb(293)));
     }
 }
