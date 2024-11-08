@@ -39,6 +39,7 @@ public class Operations {
             System.out.println("Index out of bound");
             return tail;
         }
+        // deleting tail
         if(pos == 0 && temp.next == tail){
             temp.next = tail.next;
             return temp;
@@ -46,6 +47,49 @@ public class Operations {
 
         temp.next = temp.next.next;
         return tail;
+    }
+
+    // function to insert a node at given index
+    public static Node<Integer> insert(int data , int pos , Node<Integer>tail){
+        Node<Integer>n = new Node<Integer>(data);
+        // case 1 adding element to head
+        if(pos == 0){
+            n.next = tail.next.next;
+            tail.next = n;
+            return tail;
+        }
+        // look for index we have to add the given node
+        Node<Integer>temp = tail.next;
+        while (pos>1 && temp.next !=tail) {
+            temp = temp.next;
+            pos--;
+        }
+        // check index out of bound
+        if(pos>1){
+            System.out.println("Index out of bound");
+            return tail;
+        }
+        if(pos == 1 ){
+            n.next = temp.next;
+            temp.next = n;
+        }
+        
+        
+        return tail;
+    }
+
+    // function to calcualte lenght of cir list
+    public static int lenght(Node<Integer>tail){
+        if(tail == null){
+            return 0;
+        }
+        Node<Integer>head = tail.next;
+        int len = 1;
+        while (head != tail) {
+            len++;
+            head = head.next;
+        }
+        return len;
     }
 
     // function to print to list
@@ -56,12 +100,17 @@ public class Operations {
             head = head.next;
         }
         System.out.print(tail.data + "->" + tail.next.data);
+        System.out.println();
     }
+
     public static void main(String[] args) {
         Node<Integer>tail = createClist();
         printCl(tail);
-        Node<Integer>tail2 = delete(tail, 3);
-        System.out.println();
-        printCl(tail2);
+        // Node<Integer>tail2 = delete(tail, 3);
+        // System.out.println();
+        // printCl(tail2);
+        Node<Integer>tail3v = insert(6, 4, tail);
+        printCl(tail3v);
+        System.out.println(lenght(tail3v));
     }
 }
