@@ -16,7 +16,6 @@ public class DeleteEveryNnodes {
         System.out.println();
     }
 
-
     // creating linked list by inserting element from inputs given by user
     public static Node<Integer> createLlist(){
         Scanner s = new Scanner(System.in);
