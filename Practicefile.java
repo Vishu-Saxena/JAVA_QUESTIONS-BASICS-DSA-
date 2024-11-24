@@ -600,10 +600,106 @@ public class Practicefile {
             return output;
         }
     }
+
+
+    // pattern practice questions
+    static void p1(int rows){
+        for(int i=rows; i>0; i--){
+            for(int j=i; j>0 ;j--){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    static void p2(int rows){
+        for(int i=1; i<=rows; i++){
+            for(int j=1; j<=i; j++){
+                System.out.print(j+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void p3(int rows){
+        for(int i=1; i<=rows; i++){
+            for(int j=1; j<=i; j++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for(int i=rows-1; i>=1; i--){
+            for(int j=i; j>=1; j--){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    static void p4(int row){
+        for(int i=1; i<=row; i++){
+            // printing spaces
+            for(int j = row-i; j>0; j--){
+                System.out.print(" ");
+            }
+            for(int j=1; j<=i; j++){
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+        for(int i=row-1; i>=1; i--){
+            // printing spaces
+            for(int j = row-i; j>0; j--){
+                System.out.print(" ");
+            }
+            for(int j=1; j<=i; j++){
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void p5(int rows){
+        for(int i=1; i<=rows; i++){
+            // printing spaces
+            for(int j=i; j<rows; j++){
+                System.out.print("  ");
+            }
+            for(int j=i; j>=1; j--){
+                System.out.print(j +" ");
+            }
+            for(int j=2; j<=i; j++){
+                System.out.print(j +" ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void p6(int n){
+        for(int i=0; i<2*n-1; i++){
+            for(int j=0; j<2*n-1; j++){
+                int lettrtoPrint = Math.min(Math.min(j-0, 2*n-2-j), Math.min(i-0, 2*n-2-i));
+                System.out.print(lettrtoPrint);
+            }
+            System.out.println();
+        }
+    }
+    static void p7(int n){
+        for(int i=0; i<2*n-1; i++){
+            for(int j=0; j<2*n-1; j++){
+                int lettrtoPrint = Math.min(Math.min(j-0, 2*n-2-j), Math.min(i-0, 2*n-2-i));
+                System.out.print(n-lettrtoPrint);
+            }
+            System.out.println();
+        }
+    }
     
 
     public static void main(String[] args) {
         // knightTour(5);
-        System.out.println(Arrays.toString(keypadComb(293)));
+        // System.out.println(Arrays.toString(keypadComb(293)));
+        // System.out.println( Integer.toBinaryString(-1));
+        // p7(4);
+
     }
 }
